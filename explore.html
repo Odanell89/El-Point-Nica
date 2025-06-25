@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorar Eventos - ElPointNica</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="module" src="index.tsx"></script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="20" fill="#3B82F6"/>
+                        <path d="M20 10C15.5817 10 12 13.5817 12 18C12 23.5376 19.0104 29.0741 19.462 29.5379C19.7747 29.8596 20.2253 29.8596 20.538 29.5379C20.9896 29.0741 28 23.5376 28 18C28 13.5817 24.4183 10 20 10ZM20 21C18.3431 21 17 19.6569 17 18C17 16.3431 18.3431 15 20 15C21.6569 15 23 16.3431 23 18C23 19.6569 21.6569 21 20 21Z" fill="white"/>
+                    </svg>
+                    <span>ElPointNica</span>
+                </a>
+            </div>
+            <nav class="main-nav" aria-label="Navegación principal">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="explore.html">Explorar</a></li>
+                    <li><a href="categories.html">Categorías</a></li>
+                    <li><a href="about.html">Acerca de</a></li>
+                    <li><a href="contact.html">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons" aria-label="Autenticación de usuario">
+                <a href="login.html" class="btn btn-secondary">Iniciar Sesión</a>
+                <a href="register.html" class="btn btn-primary">Registrarse</a>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu-container">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="explore-page-container section-padding">
+        <div class="container">
+            <h1>Explorar Eventos</h1>
+            
+            <div class="explore-layout">
+                <aside class="filters-sidebar">
+                    <h2>Filtros Avanzados</h2>
+                    
+                    <div class="filter-group">
+                        <label for="filter-category">Categoría</label>
+                        <select id="filter-category" name="category" aria-label="Filtrar por categoría">
+                            <option value="todas">Todas las categorías</option>
+                            <option value="musica">Música</option>
+                            <option value="gastronomia">Gastronomía</option>
+                            <option value="arte">Arte</option>
+                            <option value="deportes">Deportes</option>
+                            <option value="turismo">Turismo</option>
+                            <option value="negocios">Negocios (Pymes)</option>
+                            <option value="talleres">Talleres</option>
+                            <option value="ferias">Ferias</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Fecha</label>
+                        <div class="date-quick-filters">
+                            <button class="btn btn-filter">Hoy</button>
+                            <button class="btn btn-filter">Mañana</button>
+                            <button class="btn btn-filter">Esta Semana</button>
+                            <button class="btn btn-filter">Fin de Semana</button>
+                        </div>
+                        <label for="filter-date-range" class="sr-only">Rango de Fechas</label>
+                        <input type="text" id="filter-date-range" name="daterange" placeholder="Desde - Hasta (Calendario)" aria-label="Seleccionar rango de fechas">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="filter-location">Ubicación (Departamento)</label>
+                        <select id="filter-location" name="location" aria-label="Filtrar por departamento">
+                            <option value="todos">Todos los departamentos</option>
+                            <option value="managua">Managua</option>
+                            <option value="masaya">Masaya</option>
+                            <option value="granada">Granada</option>
+                            <option value="leon">León</option>
+                            <option value="esteli">Estelí</option>
+                            <option value="matagalpa">Matagalpa</option>
+                            <option value="chinandega">Chinandega</option>
+                            <option value="rivas">Rivas</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Precio</label>
+                        <div class="radio-group">
+                            <div>
+                                <input type="radio" id="price-all" name="price" value="all" checked>
+                                <label for="price-all">Todos</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="price-free" name="price" value="free">
+                                <label for="price-free">Gratis</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="price-paid" name="price" value="paid">
+                                <label for="price-paid">Pagado</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-actions">
+                        <button class="btn btn-primary">Aplicar Filtros</button>
+                        <button class="btn btn-secondary">Limpiar Filtros</button>
+                    </div>
+                </aside>
+
+                <section class="event-results-section">
+                    <div class="results-header">
+                        <div class="sort-options">
+                            <label for="sort-by">Ordenar por:</label>
+                            <select id="sort-by" name="sort" aria-label="Ordenar resultados por">
+                                <option value="relevance">Relevancia</option>
+                                <option value="date-asc">Fecha (Más próximo)</option>
+                                <option value="date-desc">Fecha (Más lejano)</option>
+                                <option value="publish-date">Publicación (Más reciente)</option>
+                            </select>
+                        </div>
+                         <p class="results-count" aria-live="polite">Mostrando 3 eventos</p> 
+                    </div>
+
+                    <div class="card-grid">
+                        <!-- Event Card 1 -->
+                        <div class="event-card">
+                            <div class="card-image-placeholder">
+                                <span class="category-tag musica">Música</span>
+                            </div>
+                            <div class="card-content">
+                                <h3>Concierto de Rock Nacional</h3>
+                                <p class="card-info"><i class="far fa-calendar-alt" aria-hidden="true"></i> 15 de Agosto, 2024 - 8:00 PM</p>
+                                <p class="card-info"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Plaza Mayor, Managua</p>
+                                <div class="card-footer">
+                                    <span class="price">C$250</span>
+                                    <button class="favorite-btn" aria-label="Añadir Concierto de Rock a favoritos" aria-pressed="false"><i class="far fa-heart" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Event Card 2 -->
+                        <div class="event-card">
+                            <div class="card-image-placeholder">
+                                <span class="category-tag arte">Arte</span>
+                            </div>
+                            <div class="card-content">
+                                <h3>Noche de Museos Abiertos</h3>
+                                <p class="card-info"><i class="far fa-calendar-alt" aria-hidden="true"></i> 20 de Agosto, 2024 - 6:00 PM - 10:00 PM</p>
+                                <p class="card-info"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Varios Museos, Granada</p>
+                                <div class="card-footer">
+                                    <span class="price gratis">Gratis</span>
+                                    <button class="favorite-btn" aria-label="Añadir Noche de Museos a favoritos" aria-pressed="false"><i class="far fa-heart" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Event Card 3 -->
+                        <div class="event-card">
+                            <div class="card-image-placeholder">
+                                <span class="category-tag gastronomia">Gastronomía</span>
+                            </div>
+                            <div class="card-content">
+                                <h3>Festival del Maíz</h3>
+                                <p class="card-info"><i class="far fa-calendar-alt" aria-hidden="true"></i> 25-27 de Agosto, 2024 - Todo el día</p>
+                                <p class="card-info"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Parque de Ferias, Masaya</p>
+                                <div class="card-footer">
+                                    <span class="price">C$50 (Entrada)</span>
+                                    <button class="favorite-btn" aria-label="Añadir Festival del Maíz a favoritos" aria-pressed="false"><i class="far fa-heart" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="no-results" style="display:none;" role="status">
+                        <i class="fas fa-search-minus fa-3x" aria-hidden="true"></i>
+                        <p><strong>No se encontraron eventos</strong></p>
+                        <p>No hay eventos que coincidan con los criterios seleccionados. Intenta ampliar tu búsqueda o ajustar los filtros.</p>
+                    </div>
+                    
+                    <nav class="pagination" aria-label="Navegación de resultados">
+                        <ul>
+                            <li><a href="#" class="page-link prev disabled" aria-label="Página anterior" aria-disabled="true"><i class="fas fa-chevron-left"></i> Anterior</a></li>
+                            <li><a href="#" class="page-link active" aria-current="page">1</a></li>
+                            <li><a href="#" class="page-link" aria-label="Ir a página 2">2</a></li>
+                            <li><a href="#" class="page-link" aria-label="Ir a página 3">3</a></li>
+                            <li><a href="#" class="page-link next" aria-label="Página siguiente">Siguiente <i class="fas fa-chevron-right"></i></a></li>
+                        </ul>
+                    </nav>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-col about-col">
+                <div class="logo">
+                     <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px;">
+                        <circle cx="20" cy="20" r="20" fill="#3B82F6"/>
+                        <path d="M20 10C15.5817 10 12 13.5817 12 18C12 23.5376 19.0104 29.0741 19.462 29.5379C19.7747 29.8596 20.2253 29.8596 20.538 29.5379C20.9896 29.0741 28 23.5376 28 18C28 13.5817 24.4183 10 20 10ZM20 21C18.3431 21 17 19.6569 17 18C17 16.3431 18.3431 15 20 15C21.6569 15 23 16.3431 23 18C23 19.6569 21.6569 21 20 21Z" fill="white"/>
+                    </svg>
+                    <span style="font-size: 1.5em; font-weight: bold;">ElPointNica</span>
+                </div>
+                <p>Descubre eventos y Pymes en Nicaragua. La plataforma más completa para explorar lo mejor del país.</p>
+            </div>
+            <div class="footer-col links-col">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="explore.html">Explorar Eventos</a></li>
+                    <li><a href="categories.html">Categorías</a></li>
+                    <li><a href="pymes.html">Pymes</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col links-col">
+                <h4>Recursos</h4>
+                <ul>
+                    <li><a href="about.html">Acerca de</a></li>
+                    <li><a href="contact.html">Contacto</a></li>
+                    <li><a href="faq.html">Preguntas Frecuentes</a></li>
+                    <li><a href="terms.html">Términos y Condiciones</a></li>
+                    <li><a href="privacy.html">Política de Privacidad</a></li>
+                </ul>
+            </div>
+            <div class="footer-col contact-col">
+                <h4>Contacto</h4>
+                <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Managua, Nicaragua</p>
+                <p><i class="fas fa-envelope" aria-hidden="true"></i> contacto@elpointnica.com</p>
+                <p><i class="fas fa-phone" aria-hidden="true"></i> +505 2222-3333</p>
+                <h4>Síguenos</h4>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2024 ElPointNica. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
