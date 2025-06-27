@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isAdmin() {
+      return request.auth.uid == "KmDTHeR4qLSyaUpvPJ3YTxjTZXJ2";
+    }
+
+    match /events/{eventId} {
+      // Admins can read everything. Others can only read approved events.
+      allow read: if isAdmin() || resource.data.approved == true;
+      allow create: if request.auth != null;
+      // Admins or the original creator can update/delete.
+      allow update, delete: if isAdmin() || request.auth.uid == resource.data.creatorId;
+    }
+
+    match /pymes/{pymeId} {
+      // Admins can read everything. Others can only read approved pymes.
+      allow read: if isAdmin() || resource.data.approved == true;
+      allow create: if request.auth != null;
+      // Admins or the original creator can update/delete.
+      allow update, delete: if isAdmin() || request.auth.uid == resource.data.creatorId;
+    }
+
+    match /users/{userId} {
+      allow read, write: if request.auth.uid == userId;
+    }
+  }
+}
