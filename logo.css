@@ -1,0 +1,10 @@
+/* Logo Styling */
+.logo img {
+    height: 70px; /* Adjust this value as needed */
+    width: auto;
+    display: block;
+}
+
+.footer-col .logo img {
+    height: 30px; /* A slightly smaller logo for the footer */
+}
