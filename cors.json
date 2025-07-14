@@ -1,0 +1,8 @@
+[
+  {
+    "origin": ["https://9000-firebase-el-point-nica-1750823442682.cluster-ux5mmlia3zhhask7riihruxydo.cloudworkstations.dev", "https://el-pointnica.firebaseapp.com", "https://el-pointnica.web.app"],
+    "method": ["GET", "HEAD", "PUT", "POST", "DELETE"],
+    "responseHeader": ["Content-Type", "Access-Control-Allow-Origin"],
+    "maxAgeSeconds": 3600
+  }
+]

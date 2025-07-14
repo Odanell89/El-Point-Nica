@@ -1,7 +1,6 @@
 // publish-event.js
-import { db, auth, storage } from './firebase-config.js';
+import { db, auth } from './firebase-config.js';
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const eventForm = document.querySelector('form');
@@ -10,11 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
 
             const user = auth.currentUser;
-            if (!user) {
-                alert("You must be logged in to publish an event.");
-                window.location.href = 'login.html';
-                return;
-            }
+            const creatorId = user ? user.uid : 'anonymous';
 
             const title = document.getElementById('event-title').value;
             const description = document.getElementById('event-description').value;
@@ -23,18 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const locationName = document.getElementById('event-location-name').value;
             const address = document.getElementById('event-address').value;
             const price = document.getElementById('event-price').value;
-            const imageFile = document.getElementById('event-image').files[0];
-
-            let imageUrl = '';
-            if (imageFile) {
-                const storageRef = ref(storage, `event-images/${imageFile.name}`);
-                await uploadBytes(storageRef, imageFile);
-                imageUrl = await getDownloadURL(storageRef);
-            }
+            // Get the URL from the new input field
+            const imageUrl = document.getElementById('event-image').value;
 
             try {
                 await addDoc(collection(db, "events"), {
-                    creatorId: user.uid,
+                    creatorId: creatorId,
                     title,
                     description,
                     category,
@@ -42,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     locationName,
                     address,
                     price: price ? Number(price) : 0,
-                    imageUrl,
+                    imageUrl: imageUrl, // Save the provided URL
                     approved: false
                 });
                 alert("Event submitted successfully for review!");

@@ -1,7 +1,6 @@
 // register-business.js
-import { db, auth, storage } from './firebase-config.js';
+import { db, auth } from './firebase-config.js';
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const businessForm = document.querySelector('form');
@@ -10,11 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
 
             const user = auth.currentUser;
-            if (!user) {
-                alert("You must be logged in to register a business.");
-                window.location.href = 'login.html';
-                return;
-            }
+            const creatorId = user ? user.uid : 'anonymous';
 
             const name = document.getElementById('business-name').value;
             const description = document.getElementById('business-description').value;
@@ -22,32 +17,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const address = document.getElementById('business-address').value;
             const phone = document.getElementById('business-phone').value;
             const email = document.getElementById('business-email').value;
-            const logoFile = document.getElementById('business-logo').files[0];
-
-            let logoUrl = '';
-            if (logoFile) {
-                const storageRef = ref(storage, `business-logos/${logoFile.name}`);
-                await uploadBytes(storageRef, logoFile);
-                logoUrl = await getDownloadURL(storageRef);
-            }
+            // Get the URL from the new input field
+            const logoUrl = document.getElementById('business-logo').value;
 
             try {
                 await addDoc(collection(db, "pymes"), {
-                    creatorId: user.uid,
+                    creatorId: creatorId,
                     name,
                     description,
                     category,
                     address,
                     phone,
                     email,
-                    logoUrl,
+                    logoUrl: logoUrl, // Save the provided URL
                     approved: false
                 });
-                alert("Business registered successfully!");
+                alert("Business submitted successfully for review!");
                 businessForm.reset();
             } catch (error) {
                 console.error("Error adding document: ", error);
-                alert("Error registering business. Please try again.");
+                alert("Error submitting business. Please try again.");
             }
         });
     }

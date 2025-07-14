@@ -17,14 +17,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if(!pymesGrid) return;
         pymesGrid.innerHTML = '';
         const pymesRef = collection(db, "pymes");
-        
-        // --- DIAGNOSTIC STEP: Fetch all pymes for now ---
-        const q = query(pymesRef); 
+        const isAdmin = currentUser && currentUser.uid === adminUid;
+
+        let q;
+        if (isAdmin) {
+            // Admin sees all pymes
+            q = query(pymesRef);
+        } else {
+            // Regular users only see approved pymes
+            q = query(pymesRef, where("approved", "==", true));
+        }
 
         const querySnapshot = await getDocs(q);
 
         if (querySnapshot.empty) {
-            pymesGrid.innerHTML = '<p>No Pymes found in the database at all.</p>';
+            pymesGrid.innerHTML = '<p>No se encontraron Pymes.</p>';
             return;
         }
 
@@ -38,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             let adminButtons = '';
-            const isAdmin = currentUser && currentUser.uid === adminUid;
             if (isAdmin) {
                 adminButtons = `
                     <div class="admin-actions">
