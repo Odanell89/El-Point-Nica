@@ -21,10 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let q;
         if (isAdmin) {
-            // Admin sees all pymes
             q = query(pymesRef);
         } else {
-            // Regular users only see approved pymes
             q = query(pymesRef, where("approved", "==", true));
         }
 
@@ -38,6 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
         querySnapshot.forEach((doc) => {
             const pyme = doc.data();
             const pymeId = doc.id;
+            
+            const pymeCardLink = document.createElement('a');
+            pymeCardLink.href = `pyme-detail.html?id=${pymeId}`;
+            pymeCardLink.classList.add('event-card-link');
+
             const pymeCard = document.createElement('div');
             pymeCard.classList.add('event-card');
             if (!pyme.approved) {
@@ -67,12 +70,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${adminButtons}
                 </div>
             `;
-            pymesGrid.appendChild(pymeCard);
+            
+            pymeCardLink.appendChild(pymeCard);
+            pymesGrid.appendChild(pymeCardLink);
         });
     }
 
     pymesGrid.addEventListener('click', async (e) => {
-        const target = e.target;
+        const target = e.target.closest('button');
+        if (!target) return;
+        
+        e.preventDefault();
+
         const pymeId = target.dataset.id;
         if (!pymeId) return;
 

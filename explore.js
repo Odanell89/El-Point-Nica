@@ -42,6 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
         querySnapshot.forEach((doc) => {
             const event = doc.data();
             const eventId = doc.id;
+            
+            // Create an anchor tag to wrap the card
+            const eventCardLink = document.createElement('a');
+            eventCardLink.href = `event-detail.html?id=${eventId}`;
+            eventCardLink.classList.add('event-card-link');
+
             const eventCard = document.createElement('div');
             eventCard.classList.add('event-card');
             if (!event.approved) {
@@ -74,12 +80,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${adminButtons}
                 </div>
             `;
-            eventsGrid.appendChild(eventCard);
+            
+            // Append the card to the anchor, and the anchor to the grid
+            eventCardLink.appendChild(eventCard);
+            eventsGrid.appendChild(eventCardLink);
         });
     }
 
     eventsGrid.addEventListener('click', async (e) => {
-        const target = e.target;
+        // Find the button that was clicked
+        const target = e.target.closest('button');
+        if (!target) return;
+
+        // Prevent the link from firing if a button inside the card is clicked
+        e.preventDefault();
+
         const eventId = target.dataset.id;
         if (!eventId) return;
 
